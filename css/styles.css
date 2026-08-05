@@ -220,7 +220,7 @@ span.accent { color: var(--accent); }
     .edu-card, .edu-card:first-child, .edu-card:last-child { padding: 1.2rem 0; border-left: 0; border-top: 1px solid var(--line); }
 }
 @media (max-width: 620px) {
-    .nav-links { position: fixed; inset: var(--nav-h) 0 auto 0; flex-direction: column; align-items: flex-start; gap: 0; padding: 0.5rem 1.25rem 1.25rem; transform: translateY(-120%); transition: transform 0.28s ease; }
+    .nav-links { position: fixed; inset: var(--nav-h) 0 auto 0; flex-direction: column; align-items: flex-start; gap: 0; background: var(--surface); padding: 0.5rem 1.25rem 1.25rem; transform: translateY(-120%); transition: transform 0.28s ease; }
     .nav-links.open { transform: translateY(0); }
     .nav-links a { padding: 0.85rem 0; width: 100%; border-bottom: 1px solid var(--line-2); font-size: 0.95rem; }
     .nav-toggle { display: inline-flex; }
