@@ -31,6 +31,42 @@ links.addEventListener("click", function (e) {
     }
 });
 
+// ------- Theme toggle -------
+(function () {
+    var root = document.documentElement;
+    var btn = document.getElementById("themeToggle");
+    if (!btn) return;
+
+    function currentTheme() {
+        return root.getAttribute("data-theme") === "light" ? "light" : "dark";
+    }
+    function apply(theme, save) {
+        root.setAttribute("data-theme", theme);
+        btn.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+        btn.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
+        if (save) {
+            try { localStorage.setItem("theme", theme); } catch (e) {}
+        }
+    }
+
+    // Sync the button label with whatever the inline head script set (don't persist yet).
+    apply(currentTheme(), false);
+
+    btn.addEventListener("click", function () {
+        apply(currentTheme() === "light" ? "dark" : "light", true);
+    });
+
+    // Follow the OS setting until the user makes an explicit choice.
+    var mq = window.matchMedia("(prefers-color-scheme: light)");
+    var onSystemChange = function (e) {
+        var stored = null;
+        try { stored = localStorage.getItem("theme"); } catch (err) {}
+        if (!stored) apply(e.matches ? "light" : "dark", false);
+    };
+    if (mq.addEventListener) { mq.addEventListener("change", onSystemChange); }
+    else if (mq.addListener) { mq.addListener(onSystemChange); }
+})();
+
 // ------- Scroll reveal (respects reduced motion) -------
 var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var items = document.querySelectorAll(".reveal");
